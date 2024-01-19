@@ -1,4 +1,4 @@
-/* CSS for main page styles */
+ page styles */
 
 body {
     margin: 0;
@@ -16,17 +16,9 @@ canvas {
 
 
 
-
-body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
+.custom-shape-button:hover {
+    background-color: #eee;
 }
-
-
 
 
 
@@ -68,5 +60,4 @@ body {
 #imageSelect {
     /* Add any additional styling for the select element if needed */
 }
-
 
