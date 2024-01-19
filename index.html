@@ -3,35 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag and Drop Shapes</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>PNG to SVG Converter</title>
 </head>
 <body>
-    <canvas id="shapeCanvas" width="800" height="600"></canvas>
-    
-    <!-- Color Picker Button -->
-    <input type="color" id="colorPicker" value="#ff0000">
-    
-    <!-- Shape Selection Buttons -->
-    <button onclick="selectShape('rectangle')">Rectangle</button>
-    <button onclick="selectShape('circle')">Circle</button>
-    
-    <!-- Image Upload Button -->
-    <input type="file" id="imageUploader" accept=".png">
-    
-    <script src="script.js"></script>
-    
-    <!-- Shape Selection Buttons -->
-<div>
-    <button onclick="selectShape('rectangle')">Rectangle</button>
-    <button onclick="selectShape('circle')">Circle</button>
-    <select id="customShapesDropdown" onchange="selectCustomShape()">
-        <option value="triangle">Triangle</option>
-        <option value="star">Star</option>
-        <!-- Add more custom shapes as needed -->
-    </select>
-</div>
+    <input type="file" id="pngFileInput" accept=".png" onchange="convertPNGtoSVG()">
+    <br>
+    <canvas id="canvas"></canvas>
+    <br>
+    <button onclick="downloadSVG()">Download SVG</button>
 
-<!-- ... (remaining HTML content) ... -->
+    <script src="path/to/potrace.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
