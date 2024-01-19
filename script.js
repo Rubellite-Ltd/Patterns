@@ -65,3 +65,47 @@ function exportCanvas(format) {
     link.download = `canvas.${format}`;
     link.click();
 }
+const stage = new Konva.Stage({
+    container: 'container',
+    width: window.innerWidth - 20,
+    height: window.innerHeight - 200,
+});
+
+const layer = new Konva.Layer();
+stage.add(layer);
+
+let selectedImage = null;
+
+function selectImage() {
+    const imageValue = document.getElementById('imageSelect').value;
+    loadImage(imageValue);
+}
+
+function loadImage(imageValue) {
+    // Clear existing shapes from the layer
+    layer.destroyChildren();
+
+    // Load the selected image onto the layer
+    const img = new Image();
+    img.src = `path/to/${imageValue}.png`; // Replace with the actual path to your image
+    img.onload = () => {
+        const konvaImage = new Konva.Image({
+            image: img,
+            id: imageValue,
+            x: 50,
+            y: 50,
+            draggable: true,
+        });
+
+        // Add the image to the layer
+        layer.add(konvaImage);
+
+        // Batch draw to update the canvas
+        layer.batchDraw();
+    };
+
+    selectedImage = imageValue;
+}
+
+// ... (remaining JavaScript content) ...
+
