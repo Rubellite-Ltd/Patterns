@@ -1,129 +1,159 @@
-let draggedElement = null;
+// JavaScript Document
+// Set up the canvas
+const canvasContainer = document.getElementById('canvas-container');
+const canvas = document.createElement('canvas');
+canvas.width = canvasContainer.clientWidth;
+canvas.height = canvasContainer.clientHeight;
+canvasContainer.appendChild(canvas);
+const ctx = canvas.getContext('2d');
+
+let isDragging = false;
 let offsetX, offsetY;
+let selectedShape;
 
-function drag(event) {
-    draggedElement = event.target;
-    
-    if (event.type.startsWith('touch')) {
-        const touch = event.touches[0];
-        offsetX = touch.clientX - parseFloat(draggedElement.style.left);
-        offsetY = touch.clientY - parseFloat(draggedElement.style.top);
-    } else {
-        offsetX = event.clientX - parseFloat(draggedElement.style.left);
-        offsetY = event.clientY - parseFloat(draggedElement.style.top);
-    }
+// Shapes data
+const shapes = [
+  { type: 'circle', color: 'red', radius: 25, x: 100, y: 100 }, // Example initial position
+  { type: 'square', color: 'blue', size: 50, x: 200, y: 200 }, // Example initial position
+  // Add more shapes as needed
+];
+
+// Event listeners
+canvas.addEventListener('mousedown', handleMouseDown);
+canvas.addEventListener('mousemove', handleMouseMove);
+canvas.addEventListener('mouseup', handleMouseUp);
+canvas.addEventListener('touchstart', handleTouchStart);
+canvas.addEventListener('touchmove', handleTouchMove);
+canvas.addEventListener('touchend', handleTouchEnd);
+
+// Draw initial shapes
+drawShapes();
+
+// Functions
+function drawShapes() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  shapes.forEach((shape) => {
+    drawShape(shape);
+  });
 }
 
-function allowDrop(event) {
-    event.preventDefault();
+function drawShape(shape) {
+  ctx.fillStyle = shape.color;
+  if (shape.type === 'circle') {
+    ctx.beginPath();
+    ctx.arc(shape.x, shape.y, shape.radius, 0, 2 * Math.PI);
+    ctx.fill();
+  } else if (shape.type === 'square') {
+    ctx.fillRect(shape.x - shape.size / 2, shape.y - shape.size / 2, shape.size, shape.size);
+  }
+  // Add more shape drawing logic as needed
 }
 
-function drop(event) {
-    event.preventDefault();
-
-    if (draggedElement) {
-        const canvasContainer = document.getElementById('canvas-container');
-        let clientX, clientY;
-
-        if (event.type.startsWith('touch')) {
-            const touch = event.changedTouches[0];
-            clientX = touch.clientX;
-            clientY = touch.clientY;
-        } else {
-            clientX = event.clientX;
-            clientY = event.clientY;
-        }
-
-        const newElement = draggedElement.cloneNode(true);
-        newElement.style.left = clientX - offsetX + 'px';
-        newElement.style.top = clientY - offsetY + 'px';
-        newElement.removeAttribute('draggable');
-        newElement.addEventListener('mousedown', handleElementMouseDown);
-        newElement.addEventListener('touchstart', handleElementTouchStart);
-
-        canvasContainer.appendChild(newElement);
-    }
+function handleMouseDown(event) {
+  const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+  const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+  handleDragStart(mouseX, mouseY);
 }
 
-function handleElementMouseDown(event) {
-    offsetX = event.clientX - parseFloat(event.target.style.left);
-    offsetY = event.clientY - parseFloat(event.target.style.top);
-
-    function handleMouseMove(moveEvent) {
-        const newX = moveEvent.clientX - offsetX;
-        const newY = moveEvent.clientY - offsetY;
-
-        event.target.style.left = newX + 'px';
-        event.target.style.top = newY + 'px';
-    }
-
-    function handleMouseUp() {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-    }
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+function handleTouchStart(event) {
+  const touch = event.touches[0];
+  const touchX = touch.clientX - canvas.getBoundingClientRect().left;
+  const touchY = touch.clientY - canvas.getBoundingClientRect().top;
+  handleDragStart(touchX, touchY);
 }
 
-function handleElementTouchStart(event) {
+function handleDragStart(x, y) {
+  shapes.forEach((shape) => {
+    if (isInsideShape(x, y, shape)) {
+      isDragging = true;
+      selectedShape = shape;
+      offsetX = x - shape.x;
+      offsetY = y - shape.y;
+    }
+  });
+}
+
+function handleMouseMove(event) {
+  if (isDragging) {
+    const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+    const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+    handleDragMove(mouseX, mouseY);
+  }
+}
+
+function handleTouchMove(event) {
+  if (isDragging) {
     const touch = event.touches[0];
-    offsetX = touch.clientX - parseFloat(event.target.style.left);
-    offsetY = touch.clientY - parseFloat(event.target.style.top);
-
-    function handleTouchMove(moveEvent) {
-        const touch = moveEvent.touches[0];
-        const newX = touch.clientX - offsetX;
-        const newY = touch.clientY - offsetY;
-
-        event.target.style.left = newX + 'px';
-        event.target.style.top = newY + 'px';
-    }
-
-    function handleTouchEnd() {
-        document.removeEventListener('touchmove', handleTouchMove);
-        document.removeEventListener('touchend', handleTouchEnd);
-    }
-
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-    document.addEventListener('touchend', handleTouchEnd);
+    const touchX = touch.clientX - canvas.getBoundingClientRect().left;
+    const touchY = touch.clientY - canvas.getBoundingClientRect().top;
+    handleDragMove(touchX, touchY);
+  }
 }
 
-function handleShapeMouseDown(event) {
-    draggedElement = event.target;
-
-    if (event.type.startsWith('touch')) {
-        const touch = event.touches[0];
-        offsetX = touch.clientX - parseFloat(draggedElement.style.left);
-        offsetY = touch.clientY - parseFloat(draggedElement.style.top);
-    } else {
-        offsetX = event.clientX - parseFloat(draggedElement.style.left);
-        offsetY = event.clientY - parseFloat(draggedElement.style.top);
-    }
-
-    function handleMouseMove(moveEvent) {
-        const newX = moveEvent.clientX - offsetX;
-        const newY = moveEvent.clientY - offsetY;
-
-        draggedElement.style.left = newX + 'px';
-        draggedElement.style.top = newY + 'px';
-    }
-
-    function handleMouseUp() {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-    }
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-
-    // Touch events
-    draggedElement.addEventListener('touchstart', handleElementTouchStart, { passive: false });
+function handleDragMove(x, y) {
+  selectedShape.x = x - offsetX;
+  selectedShape.y = y - offsetY;
+  drawShapes();
 }
 
-// Add event listeners for touch events on shape elements
-const shapeElements = document.getElementsByClassName('draggable');
-for (let i = 0; i < shapeElements.length; i++) {
-    shapeElements[i].addEventListener('mousedown', handleShapeMouseDown);
-    shapeElements[i].addEventListener('touchstart', handleShapeMouseDown, { passive: false });
+function handleMouseUp() {
+  isDragging = false;
 }
+
+function handleTouchEnd() {
+  isDragging = false;
+}
+
+function isInsideShape(x, y, shape) {
+  if (shape.type === 'circle') {
+    const distance = Math.sqrt((x - shape.x) ** 2 + (y - shape.y) ** 2);
+    return distance <= shape.radius;
+  } else if (shape.type === 'square') {
+    return (
+      x >= shape.x - shape.size / 2 &&
+      x <= shape.x + shape.size / 2 &&
+      y >= shape.y - shape.size / 2 &&
+      y <= shape.y + shape.size / 2
+    );
+  }
+  // Add more shape collision detection as needed
+}
+
+// ... (Previous code remains unchanged)
+
+let selectedImage;
+
+// Add an event listener for image selection
+document.getElementById('imageSelect').addEventListener('change', function () {
+  selectedImage = this.value;
+  drawShapes();
+});
+
+function drawShapes() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  shapes.forEach((shape) => {
+    drawShape(shape);
+  });
+
+  // Check if there's a selected image
+  if (selectedImage) {
+    const img = new Image();
+    img.onload = function () {
+      // Adjust image size based on the shape size
+      const shape = shapes.find((s) => s.type === selectedImage);
+      if (shape) {
+        const imgSize = Math.min(shape.size, canvas.width, canvas.height);
+        ctx.drawImage(img, shape.x - imgSize / 2, shape.y - imgSize / 2, imgSize, imgSize);
+      }
+    };
+    // Set the image source based on the selected option
+    img.src = `${selectedImage}.jpg`; // Replace with your image file extension
+  }
+}
+
+// ... (Remaining code remains unchanged)
+
+
+// Adjust this code according to your shape data and additional requirements.
+
+
