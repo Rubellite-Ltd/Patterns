@@ -115,3 +115,133 @@ function handleElementMouseDown(event) {
     document.addEventListener('mouseup', handleMouseUp);
 }
 
+let draggedElement = null;
+
+function drag(event) {
+    draggedElement = event.target;
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drop(event) {
+    event.preventDefault();
+
+    if (draggedElement) {
+        const canvasContainer = document.getElementById('canvas-container');
+        const offsetX = event.clientX - canvasContainer.getBoundingClientRect().left;
+        const offsetY = event.clientY - canvasContainer.getBoundingClientRect().top;
+
+        const newElement = draggedElement.cloneNode(true);
+        newElement.style.left = offsetX - draggedElement.width / 2 + 'px';
+        newElement.style.top = offsetY - draggedElement.height / 2 + 'px';
+        newElement.removeAttribute('draggable');
+        newElement.addEventListener('mousedown', handleElementMouseDown);
+        newElement.addEventListener('touchstart', handleElementTouchStart);
+
+        canvasContainer.appendChild(newElement);
+    }
+}
+
+function handleElementMouseDown(event) {
+    const offsetX = event.clientX - parseFloat(event.target.style.left);
+    const offsetY = event.clientY - parseFloat(event.target.style.top);
+
+    function handleMouseMove(moveEvent) {
+        const newX = moveEvent.clientX - offsetX;
+        const newY = moveEvent.clientY - offsetY;
+
+        event.target.style.left = newX + 'px';
+        event.target.style.top = newY + 'px';
+    }
+
+    function handleMouseUp() {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+    }
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+}
+
+function handleElementTouchStart(event) {
+    const touch = event.touches[0];
+    const offsetX = touch.clientX - parseFloat(event.target.style.left);
+    const offsetY = touch.clientY - parseFloat(event.target.style.top);
+
+    function handleTouchMove(moveEvent) {
+        const touch = moveEvent.touches[0];
+        const newX = touch.clientX - offsetX;
+        const newY = touch.clientY - offsetY;
+
+        event.target.style.left = newX + 'px';
+        event.target.style.top = newY + 'px';
+    }
+
+    function handleTouchEnd() {
+        document.removeEventListener('touchmove', handleTouchMove);
+        document.removeEventListener('touchend', handleTouchEnd);
+    }
+
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleTouchEnd);
+}
+
+function handleShapeMouseDown(event) {
+    draggedElement = event.target;
+    const offsetX = event.clientX - parseFloat(draggedElement.style.left);
+    const offsetY = event.clientY - parseFloat(draggedElement.style.top);
+
+    function handleMouseMove(moveEvent) {
+        const newX = moveEvent.clientX - offsetX;
+        const newY = moveEvent.clientY - offsetY;
+
+        draggedElement.style.left = newX + 'px';
+        draggedElement.style.top = newY + 'px';
+    }
+
+    function handleMouseUp() {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+    }
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    // Touch events
+    draggedElement.addEventListener('touchstart', handleElementTouchStart);
+}
+
+function handleShapeTouchStart(event) {
+    draggedElement = event.target;
+    const touch = event.touches[0];
+    const offsetX = touch.clientX - parseFloat(draggedElement.style.left);
+    const offsetY = touch.clientY - parseFloat(draggedElement.style.top);
+
+    function handleTouchMove(moveEvent) {
+        const touch = moveEvent.touches[0];
+        const newX = touch.clientX - offsetX;
+        const newY = touch.clientY - offsetY;
+
+        draggedElement.style.left = newX + 'px';
+        draggedElement.style.top = newY + 'px';
+    }
+
+    function handleTouchEnd() {
+        document.removeEventListener('touchmove', handleTouchMove);
+        document.removeEventListener('touchend', handleTouchEnd);
+    }
+
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleTouchEnd);
+}
+
+// Add event listeners for touch events on shape elements
+const shapeElements = document.getElementsByClassName('shape');
+for (let i = 0; i < shapeElements.length; i++) {
+    shapeElements[i].addEventListener('mousedown', handleShapeMouseDown);
+    shapeElements[i].addEventListener('touchstart', handleShapeTouchStart);
+}
+
+
