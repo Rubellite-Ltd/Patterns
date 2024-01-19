@@ -8,6 +8,17 @@
 </head>
 <body>
     <canvas id="shapeCanvas" width="800" height="600"></canvas>
+    
+    <!-- Color Picker Button -->
+    <input type="color" id="colorPicker" value="#ff0000">
+    
+    <!-- Shape Selection Buttons -->
+    <button onclick="selectShape('rectangle')">Rectangle</button>
+    <button onclick="selectShape('circle')">Circle</button>
+    
+    <!-- Image Upload Button -->
+    <input type="file" id="imageUploader" accept=".png">
+    
     <script src="script.js"></script>
 </body>
 </html>
