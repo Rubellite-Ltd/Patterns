@@ -30,37 +30,14 @@ function handleMouseDown(e) {
     const mouseX = e.clientX - canvas.getBoundingClientRect().left;
     const mouseY = e.clientY - canvas.getBoundingClientRect().top;
 
-    startDragging(mouseX, mouseY);
-}
-
-function handleTouchStart(e) {
-    const touch = e.touches[0];
-    const touchX = touch.clientX - canvas.getBoundingClientRect().left;
-    const touchY = touch.clientY - canvas.getBoundingClientRect().top;
-
-    startDragging(touchX, touchY);
-
-    // Prevent default touch behavior to avoid scrolling
-    e.preventDefault();
-}
-
-function startDragging(startX, startY) {
-    if (startX >= 0 && startX <= canvas.width && startY >= 0 && startY <= canvas.height) {
+    if (mouseX >= 0 && mouseX <= canvas.width && mouseY >= 0 && mouseY <= canvas.height) {
         isDragging = true;
-        offsetX = startX;
-        offsetY = startY;
+        offsetX = mouseX;
+        offsetY = mouseY;
     }
 }
 
 function handleMouseUp() {
-    endDragging();
-}
-
-function handleTouchEnd() {
-    endDragging();
-}
-
-function endDragging() {
     isDragging = false;
 }
 
@@ -69,39 +46,18 @@ function handleMouseMove(e) {
         const mouseX = e.clientX - canvas.getBoundingClientRect().left;
         const mouseY = e.clientY - canvas.getBoundingClientRect().top;
 
-        moveImage(mouseX, mouseY);
+        const dx = mouseX - offsetX;
+        const dy = mouseY - offsetY;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, dx, dy, img.width, img.height);
     }
 }
 
-function handleTouchMove(e) {
-    if (isDragging) {
-        const touch = e.touches[0];
-        const touchX = touch.clientX - canvas.getBoundingClientRect().left;
-        const touchY = touch.clientY - canvas.getBoundingClientRect().top;
-
-        moveImage(touchX, touchY);
-
-        // Prevent default touch behavior to avoid scrolling
-        e.preventDefault();
-    }
-}
-
-function moveImage(moveX, moveY) {
-    const dx = moveX - offsetX;
-    const dy = moveY - offsetY;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, dx, dy, img.width, img.height);
-}
-
-// Attach event listeners for both mouse and touch events
+// Attach event listeners
 canvas.addEventListener('mousedown', handleMouseDown);
 canvas.addEventListener('mouseup', handleMouseUp);
 canvas.addEventListener('mousemove', handleMouseMove);
-
-canvas.addEventListener('touchstart', handleTouchStart);
-canvas.addEventListener('touchend', handleTouchEnd);
-canvas.addEventListener('touchmove', handleTouchMove);
 
 // Initial draw
 drawSelectedImage();
