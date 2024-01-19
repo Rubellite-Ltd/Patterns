@@ -17,8 +17,59 @@
             position: absolute;
             cursor: move;
         }
+
+        .circle {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        .square {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 43.3px solid green;
+        }
+
+        .star {
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 52px solid yellow;
+            position: relative;
+            top: -32px;
+        }
+
+        .cross {
+            width: 50px;
+            height: 50px;
+            background-color: purple;
+            clip-path: polygon(15% 0%, 50% 85%, 85% 0%);
+        }
     </style>
 </head>
+<body>
+    <div id="canvas-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <!-- Add draggable shapes here -->
+        <div class="draggable circle" draggable="true" onmousedown="handleShapeMouseDown(event)"></div>
+        <div class="draggable square" draggable="true" onmousedown="handleShapeMouseDown(event)"></div>
+        <div class="draggable triangle" draggable="true" onmousedown="handleShapeMouseDown(event)"></div>
+        <div class="draggable star" draggable="true" onmousedown="handleShapeMouseDown(event)"></div>
+        <div class="draggable cross" draggable="true" onmousedown="handleShapeMouseDown(event)"></div>
+    </div>
+
+    <script src="script.js"></script>
+
+
 <body>
     <div id="canvas-container" ondrop="drop(event)" ondragover="allowDrop(event)">
         <!-- Add provided images here -->
