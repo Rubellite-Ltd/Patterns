@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Editor</title>
-    <script src="https://cdn.jsdelivr.net/npm/konva@7.0.6/konva.min.js"></script>
+    <title>Canvas Image Viewer</title>
     <style>
-        #container {
+        #canvasContainer {
             border: 1px solid #ccc;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
         }
     </style>
 </head>
@@ -15,69 +18,16 @@
     <div>
         <label for="imageSelect">Choose an Image:</label>
         <select id="imageSelect" onchange="selectImage()">
-            <option value="https://via.placeholder.com/200">Image 1</option>
-            <option value="https://via.placeholder.com/300">Image 2</option>
+            <option value="image1">Image 1</option>
+            <option value="image2">Image 2</option>
             <!-- Add more provided images as needed -->
         </select>
     </div>
     <br>
-    <div>
-        <label for="colorPicker">Choose a Color:</label>
-        <input type="color" id="colorPicker" value="#ff0000">
+    <div id="canvasContainer">
+        <canvas id="canvas" width="800" height="600"></canvas>
     </div>
-    <br>
-    <div>
-        <label for="sizeSlider">Change Size:</label>
-        <input type="range" id="sizeSlider" min="10" max="200" value="50" onchange="changeSize()">
-    </div>
-    <br>
-    <div>
-        <label for="customShapeInput">Upload Custom Shape:</label>
-        <input type="file" id="customShapeInput" accept=".svg" onchange="loadCustomShape()">
-    </div>
-    <br>
-    <button onclick="exportCanvas('png')">Export as PNG</button>
-    <button onclick="exportCanvas('jpeg')">Export as JPEG</button>
-    <button onclick="exportCanvas('svg')">Export as SVG</button>
-    <br>
-    <div id="container"></div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Editor</title>
-    <script src="https://cdn.jsdelivr.net/npm/konva@7.0.6/konva.min.js"></script>
-    <style>
-        #container {
-            border: 1px solid #ccc;
-        }
-    </style>
-</head>
-<body>
-    <div>
-        <label for="shapeSelect">Choose a Shape:</label>
-        <select id="shapeSelect" onchange="selectShape()">
-            <option value="rectangle">Rectangle</option>
-            <option value="circle">Circle</option>
-            <option value="triangle">Triangle</option>
-            <option value="star">Star</option>
-            <!-- Add more shapes as needed -->
-        </select>
-    </div>
-    <br>
-    <button onclick="exportCanvas('png')">Export as PNG</button>
-    <button onclick="exportCanvas('jpeg')">Export as JPEG</button>
-    <button onclick="exportCanvas('svg')">Export as SVG</button>
-    <br>
-    <div id="container"></div>
-
-    <script src="script.js"></script>
-</body>
-</html>
-
