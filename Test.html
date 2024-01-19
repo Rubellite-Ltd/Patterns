@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Editor</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #canvas-container {
+            position: relative;
+            border: 1px solid #ccc;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .draggable {
+            position: absolute;
+            cursor: move;
+        }
+
+        .custom-shape-button {
+            display: inline-block;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .horizontal-scroll-container {
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .draggable-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <!-- Add draggable shapes here -->
+        <div class="draggable circle" draggable="true" onmousedown="handleShapeMouseDown(event)"></div>
+        <div class="draggable square" draggable="true" onmousedown="handleShapeMouseDown(event)"></div>
+        <!-- Add more draggable shapes as needed -->
+    </div>
+
+    <div class="horizontal-scroll-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <!-- Add draggable icons here -->
+        <img src="image1.jpg" class="draggable-icon" onclick="selectIcon('image1.jpg')" draggable="true" alt="Icon 1">
+        <img src="image2.jpg" class="draggable-icon" onclick="selectIcon('image2.jpg')" draggable="true" alt="Icon 2">
+        <!-- Add more draggable icons as needed -->
+    </div>
+
+    <br>
+
+    <div>
+        <label for="colorPicker">Choose a Color:</label>
+        <input type="color" id="colorPicker" value="#ff0000">
+    </div>
+    <br>
+    <div>
+        <label for="sizeSlider">Change Size:</label>
+        <input type="range" id="sizeSlider" min="10" max="200" value="50" onchange="changeSize()">
+    </div>
+    <br>
+
+    <div id="customShapesBar">
+        <!-- Add custom shape buttons here -->
+        <div id="shapeButtonsContainer">
+            <button class="custom-shape-button" onclick="addShape('circle')">Circle</button>
+            <button class="custom-shape-button" onclick="addShape('square')">Square</button>
+            <button class="custom-shape-button" onclick="addShape('triangle')">Triangle</button>
+            <button class="custom-shape-button" onclick="addShape('star')">Star</button>
+            <!-- Add more custom shape buttons as needed -->
+        </div>
+    </div>
+
+    <br>
+
+    <button onclick="exportCanvas('png')">Export as PNG</button>
+    <button onclick="exportCanvas('jpeg')">Export as JPEG</button>
+    <button onclick="exportCanvas('svg')">Export as SVG</button>
+    <br>
+
+    <div id="container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
