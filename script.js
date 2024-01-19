@@ -23,4 +23,23 @@ canvas.addEventListener('mousedown', (e) => {
     drawShape(mouseX, mouseY);
 });
 
-// Add more event listeners for color change, shape selection, etc.
+// Function to handle shape selection
+function selectShape(shape) {
+    selectedShape = shape;
+}
+
+// Event listener for color picker
+document.getElementById('colorPicker').addEventListener('input', (e) => {
+    selectedColor = e.target.value;
+});
+
+// Event listener for image uploader
+document.getElementById('imageUploader').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file && file.type === 'image/png') {
+        // Handle image upload logic (you may want to draw the image on the canvas)
+        // For simplicity, you can add a function to handle this.
+    } else {
+        alert('Please choose a valid PNG image.');
+    }
+});
