@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Image Viewer</title>
+    <title>Canvas Editor</title>
+    <script src="https://cdn.jsdelivr.net/npm/konva@7.0.6/konva.min.js"></script>
     <style>
-        #canvasContainer {
+        #container {
             border: 1px solid #ccc;
-        }
-        img {
-            max-width: 100%;
-            max-height: 100%;
         }
     </style>
 </head>
@@ -24,9 +21,26 @@
         </select>
     </div>
     <br>
-    <div id="canvasContainer">
-        <canvas id="canvas" width="800" height="600"></canvas>
+    <div>
+        <label for="colorPicker">Choose a Color:</label>
+        <input type="color" id="colorPicker" value="#ff0000">
     </div>
+    <br>
+    <div>
+        <label for="sizeSlider">Change Size:</label>
+        <input type="range" id="sizeSlider" min="10" max="200" value="50" onchange="changeSize()">
+    </div>
+    <br>
+    <div>
+        <label for="customShapeInput">Upload Custom Shape:</label>
+        <input type="file" id="customShapeInput" accept=".svg" onchange="loadCustomShape()">
+    </div>
+    <br>
+    <button onclick="exportCanvas('png')">Export as PNG</button>
+    <button onclick="exportCanvas('jpeg')">Export as JPEG</button>
+    <button onclick="exportCanvas('svg')">Export as SVG</button>
+    <br>
+    <div id="container"></div>
 
     <script src="script.js"></script>
 </body>
