@@ -3,16 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PNG to SVG Converter</title>
+    <title>Canvas Editor</title>
+    <script src="https://cdn.jsdelivr.net/npm/konva@7.0.6/konva.min.js"></script>
+    <style>
+        #container {
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
-    <input type="file" id="pngFileInput" accept=".png" onchange="convertPNGtoSVG()">
+    <div>
+        <label for="imageSelect">Choose an Image:</label>
+        <select id="imageSelect" onchange="selectImage()">
+            <option value="image1">Image 1</option>
+            <option value="image2">Image 2</option>
+            <!-- Add more provided images as needed -->
+        </select>
+    </div>
     <br>
-    <canvas id="canvas"></canvas>
+    <div>
+        <label for="colorPicker">Choose a Color:</label>
+        <input type="color" id="colorPicker" value="#ff0000">
+    </div>
     <br>
-    <button onclick="downloadSVG()">Download SVG</button>
+    <div>
+        <label for="sizeSlider">Change Size:</label>
+        <input type="range" id="sizeSlider" min="10" max="200" value="50" onchange="changeSize()">
+    </div>
+    <br>
+    <div>
+        <label for="customShapeInput">Upload Custom Shape:</label>
+        <input type="file" id="customShapeInput" accept=".svg" onchange="loadCustomShape()">
+    </div>
+    <br>
+    <button onclick="exportCanvas('png')">Export as PNG</button>
+    <button onclick="exportCanvas('jpeg')">Export as JPEG</button>
+    <button onclick="exportCanvas('svg')">Export as SVG</button>
+    <br>
+    <div id="container"></div>
 
-    <script src="path/to/potrace.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
