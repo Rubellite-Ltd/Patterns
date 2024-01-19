@@ -45,3 +45,39 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Editor</title>
+    <script src="https://cdn.jsdelivr.net/npm/konva@7.0.6/konva.min.js"></script>
+    <style>
+        #container {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label for="shapeSelect">Choose a Shape:</label>
+        <select id="shapeSelect" onchange="selectShape()">
+            <option value="rectangle">Rectangle</option>
+            <option value="circle">Circle</option>
+            <option value="triangle">Triangle</option>
+            <option value="star">Star</option>
+            <!-- Add more shapes as needed -->
+        </select>
+    </div>
+    <br>
+    <button onclick="exportCanvas('png')">Export as PNG</button>
+    <button onclick="exportCanvas('jpeg')">Export as JPEG</button>
+    <button onclick="exportCanvas('svg')">Export as SVG</button>
+    <br>
+    <div id="container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
