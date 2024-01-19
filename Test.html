@@ -19,7 +19,8 @@
             cursor: move;
         }
 
-        .custom-shape-button {
+        .custom-shape-button,
+        .draggable-icon {
             display: inline-block;
             margin: 5px;
             cursor: pointer;
@@ -34,24 +35,22 @@
             width: 40px;
             height: 40px;
             margin-right: 10px;
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
     <div id="canvas-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <!-- Add draggable shapes here -->
-        <div class="draggable circle" draggable="true" onmousedown="handleShapeMouseDown(event)"></div>
-        <div class="draggable square" draggable="true" onmousedown="handleShapeMouseDown(event)"></div>
-        <!-- Add more draggable shapes as needed -->
+        <!-- Canvas content will be added here -->
     </div>
 
-    <div class="horizontal-scroll-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <!-- Add draggable icons here -->
-        <img src="image1.jpg" class="draggable-icon" onclick="selectIcon('image1.jpg')" draggable="true" alt="Icon 1">
-        <img src="image2.jpg" class="draggable-icon" onclick="selectIcon('image2.jpg')" draggable="true" alt="Icon 2">
-        <!-- Add more draggable icons as needed -->
+    <div class="horizontal-scroll-container">
+        <label for="imageSelect">Choose an Image:</label>
+        <select id="imageSelect" onchange="selectImage()">
+            <option value="image1">Image 1</option>
+            <option value="image2">Image 2</option>
+            <!-- Add more options for images as needed -->
+        </select>
     </div>
 
     <br>
@@ -67,15 +66,20 @@
     </div>
     <br>
 
-    <div id="customShapesBar">
+    <div id="customShapesBar" class="horizontal-scroll-container">
         <!-- Add custom shape buttons here -->
-        <div id="shapeButtonsContainer">
-            <button class="custom-shape-button" onclick="addShape('circle')">Circle</button>
-            <button class="custom-shape-button" onclick="addShape('square')">Square</button>
-            <button class="custom-shape-button" onclick="addShape('triangle')">Triangle</button>
-            <button class="custom-shape-button" onclick="addShape('star')">Star</button>
-            <!-- Add more custom shape buttons as needed -->
-        </div>
+        <button class="custom-shape-button" onclick="addShape('circle')">Circle</button>
+        <button class="custom-shape-button" onclick="addShape('square')">Square</button>
+        <button class="custom-shape-button" onclick="addShape('triangle')">Triangle</button>
+        <button class="custom-shape-button" onclick="addShape('star')">Star</button>
+        <!-- Add more custom shape buttons as needed -->
+    </div>
+
+    <div id="iconsContainer" class="horizontal-scroll-container">
+        <!-- Add draggable icons here -->
+        <img src="image1.jpg" class="draggable-icon" onclick="selectIcon('image1.jpg')" draggable="true" alt="Icon 1">
+        <img src="image2.jpg" class="draggable-icon" onclick="selectIcon('image2.jpg')" draggable="true" alt="Icon 2">
+        <!-- Add more draggable icons as needed -->
     </div>
 
     <br>
