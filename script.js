@@ -1,63 +1,67 @@
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const stage = new Konva.Stage({
+    container: 'container',
+    width: window.innerWidth - 20,
+    height: window.innerHeight - 200,
+});
+
+const layer = new Konva.Layer();
+stage.add(layer);
+
 let selectedImage = 'image1';
-let isDragging = false;
-let offsetX, offsetY;
 
 function selectImage() {
     selectedImage = document.getElementById('imageSelect').value;
-    drawSelectedImage();
 }
 
-function drawSelectedImage() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+function changeSize() {
+    const newSize = document.getElementById('sizeSlider').value;
+    const selectedShape = layer.find(`#${selectedImage}`)[0];
 
-    const img = new Image();
-    img.onload = function () {
-        // Resize the canvas to fit the image
-        canvas.width = img.width;
-        canvas.height = img.height;
-
-        // Draw the image on the canvas
-        ctx.drawImage(img, 0, 0, img.width, img.height);
-    };
-
-    // Set the source of the image based on the selected option
-    img.src = `path/to/${selectedImage}.jpg`; // Replace with the correct path to your images
-}
-
-function handleMouseDown(e) {
-    const mouseX = e.clientX - canvas.getBoundingClientRect().left;
-    const mouseY = e.clientY - canvas.getBoundingClientRect().top;
-
-    if (mouseX >= 0 && mouseX <= canvas.width && mouseY >= 0 && mouseY <= canvas.height) {
-        isDragging = true;
-        offsetX = mouseX;
-        offsetY = mouseY;
+    if (selectedShape) {
+        selectedShape.width(newSize);
+        selectedShape.height(newSize);
+        layer.batchDraw();
     }
 }
 
-function handleMouseUp() {
-    isDragging = false;
-}
+function loadCustomShape() {
+    const fileInput = document.getElementById('customShapeInput');
+    const file = fileInput.files[0];
 
-function handleMouseMove(e) {
-    if (isDragging) {
-        const mouseX = e.clientX - canvas.getBoundingClientRect().left;
-        const mouseY = e.clientY - canvas.getBoundingClientRect().top;
+    if (file && file.type === 'image/svg+xml') {
+        const reader = new FileReader();
 
-        const dx = mouseX - offsetX;
-        const dy = mouseY - offsetY;
+        reader.onload = (event) => {
+            const svgContent = event.target.result;
+            addCustomShape(svgContent);
+        };
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, dx, dy, img.width, img.height);
+        reader.readAsText(file);
+    } else {
+        alert('Please choose a valid SVG file.');
     }
 }
 
-// Attach event listeners
-canvas.addEventListener('mousedown', handleMouseDown);
-canvas.addEventListener('mouseup', handleMouseUp);
-canvas.addEventListener('mousemove', handleMouseMove);
+function addCustomShape(svgContent) {
+    const customShape = new Konva.Path({
+        x: 50,
+        y: 50,
+        data: svgContent,
+        id: 'customShape',
+        draggable: true,
+    });
 
-// Initial draw
-drawSelectedImage();
+    layer.add(customShape);
+    layer.batchDraw();
+}
+
+function exportCanvas(format) {
+    const dataURL = stage.toDataURL({
+        mimeType: `image/${format}`,
+    });
+
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = `canvas.${format}`;
+    link.click();
+}
