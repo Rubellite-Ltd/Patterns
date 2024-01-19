@@ -47,10 +47,11 @@ function findShape(x, y) {
     return -1;
 }
 
-canvas.addEventListener('mousedown', (e) => {
-    const mouseX = e.clientX - canvas.getBoundingClientRect().left;
-    const mouseY = e.clientY - canvas.getBoundingClientRect().top;
-    
+function handleMouseDown(e) {
+    const touch = e.touches ? e.touches[0] : e;
+    const mouseX = touch.clientX - canvas.getBoundingClientRect().left;
+    const mouseY = touch.clientY - canvas.getBoundingClientRect().top;
+
     selectedShapeIndex = findShape(mouseX, mouseY);
 
     if (selectedShapeIndex === -1) {
@@ -62,12 +63,13 @@ canvas.addEventListener('mousedown', (e) => {
     }
 
     drawShapes();
-});
+}
 
-canvas.addEventListener('mousemove', (e) => {
+function handleMouseMove(e) {
     if (isDragging) {
-        const mouseX = e.clientX - canvas.getBoundingClientRect().left;
-        const mouseY = e.clientY - canvas.getBoundingClientRect().top;
+        const touch = e.touches ? e.touches[0] : e;
+        const mouseX = touch.clientX - canvas.getBoundingClientRect().left;
+        const mouseY = touch.clientY - canvas.getBoundingClientRect().top;
 
         if (selectedShapeIndex !== -1) {
             // Update the position of the dragged shape
@@ -76,10 +78,19 @@ canvas.addEventListener('mousemove', (e) => {
             drawShapes();
         }
     }
-});
+}
 
-canvas.addEventListener('mouseup', () => {
+function handleMouseUp() {
     isDragging = false;
-});
+}
+
+canvas.addEventListener('mousedown', handleMouseDown);
+canvas.addEventListener('touchstart', handleMouseDown);
+
+canvas.addEventListener('mousemove', handleMouseMove);
+canvas.addEventListener('touchmove', handleMouseMove);
+
+canvas.addEventListener('mouseup', handleMouseUp);
+canvas.addEventListener('touchend', handleMouseUp);
 
 // Other functions remain unchanged...
