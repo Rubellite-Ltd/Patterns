@@ -44,13 +44,13 @@
         <!-- Canvas content will be added here -->
     </div>
 
-    <div class="horizontal-scroll-container">
-        <label for="imageSelect">Choose an Image:</label>
-        <select id="imageSelect" onchange="selectImage()">
-            <option value="image1">Image 1</option>
-            <option value="image2">Image 2</option>
-            <!-- Add more options for images as needed -->
-        </select>
+    <div class="horizontal-scroll-container" style="width: 100%;">
+        <div id="iconsContainer" style="white-space: nowrap;">
+            <!-- Add draggable icons here -->
+            <img src="image1.jpg" class="draggable-icon" onclick="selectIcon('image1.jpg')" draggable="true" alt="Icon 1">
+            <img src="image2.jpg" class="draggable-icon" onclick="selectIcon('image2.jpg')" draggable="true" alt="Icon 2">
+            <!-- Add more draggable icons as needed -->
+        </div>
     </div>
 
     <br>
@@ -73,13 +73,6 @@
         <button class="custom-shape-button" onclick="addShape('triangle')">Triangle</button>
         <button class="custom-shape-button" onclick="addShape('star')">Star</button>
         <!-- Add more custom shape buttons as needed -->
-    </div>
-
-    <div id="iconsContainer" class="horizontal-scroll-container">
-        <!-- Add draggable icons here -->
-        <img src="image1.jpg" class="draggable-icon" onclick="selectIcon('image1.jpg')" draggable="true" alt="Icon 1">
-        <img src="image2.jpg" class="draggable-icon" onclick="selectIcon('image2.jpg')" draggable="true" alt="Icon 2">
-        <!-- Add more draggable icons as needed -->
     </div>
 
     <br>
