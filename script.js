@@ -1,50 +1,69 @@
-const canvas = document.getElementById('shapeCanvas');
-const ctx = canvas.getContext('2d');
+// Function to handle PNG to SVG conversion
+async function convertPNGtoSVG() {
+    const pngFileInput = document.getElementById('pngFileInput');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
 
-let selectedShape = 'rectangle';
-let selectedColor = '#ff0000';
+    const file = pngFileInput.files[0];
 
-function drawShape(x, y) {
-    ctx.fillStyle = selectedColor;
-
-    if (selectedShape === 'rectangle') {
-        ctx.fillRect(x, y, 50, 50);
-    } else if (selectedShape === 'circle') {
-        ctx.beginPath();
-        ctx.arc(x + 25, y + 25, 25, 0, 2 * Math.PI);
-        ctx.fill();
+    if (file && file.type === 'image/png') {
+        const svgContent = await convertPNGtoSVGContent(file);
+        renderSVGOnCanvas(svgContent, canvas, ctx);
+    } else {
+        alert('Please choose a valid PNG file.');
     }
-    // Add more shapes as needed
 }
 
-canvas.addEventListener('mousedown', (e) => {
-    const mouseX = e.clientX - canvas.getBoundingClientRect().left;
-    const mouseY = e.clientY - canvas.getBoundingClientRect().top;
-    drawShape(mouseX, mouseY);
-});
+// Function to convert PNG to SVG content using potrace
+function convertPNGtoSVGContent(pngFile) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
 
-// Add more event listeners for color change, shape selection, etc.
+        reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
 
-// ... (previous JavaScript content) ...
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
 
-function drawCustomShape(x, y, sides) {
-    // Function to draw a custom shape (e.g., a triangle)
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    const angleIncrement = (2 * Math.PI) / sides;
-    for (let i = 0; i < sides; i++) {
-        const angle = i * angleIncrement;
-        const newX = x + Math.cos(angle) * 25; // Adjust radius as needed
-        const newY = y + Math.sin(angle) * 25; // Adjust radius as needed
-        ctx.lineTo(newX, newY);
-    }
-    ctx.closePath();
-    ctx.fill();
+                const bitmap = new potrace.Bitmap(canvas);
+                const path = bitmap.trace();
+
+                // Convert the path to SVG
+                const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${img.width}" height="${img.height}">${path.toSvg()}</svg>`;
+                resolve(svgContent);
+            };
+        };
+
+        reader.readAsDataURL(pngFile);
+    });
 }
 
-function selectCustomShape() {
-    const dropdown = document.getElementById('customShapesDropdown');
-    selectedShape = dropdown.value;
+// Function to render SVG content on a canvas
+function renderSVGOnCanvas(svgContent, canvas, ctx) {
+    const DOMURL = window.URL || window.webkitURL || window;
+    const img = new Image();
+    const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' });
+    const svgUrl = DOMURL.createObjectURL(svgBlob);
+
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+        DOMURL.revokeObjectURL(svgUrl);
+    };
+
+    img.src = svgUrl;
 }
 
-// ... (remaining JavaScript content) ...
+// Function to download the current canvas content as an SVG file
+function downloadSVG() {
+    const canvas = document.getElementById('canvas');
+    const svgData = canvas.toDataURL('image/svg+xml');
+    const link = document.createElement('a');
+    link.href = svgData;
+    link.download = 'converted.svg';
+    link.click();
+}
