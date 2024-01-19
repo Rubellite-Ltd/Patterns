@@ -156,4 +156,57 @@ function drawShapes() {
 
 // Adjust this code according to your shape data and additional requirements.
 
+<!-- To add image in scrol -->
+
+
+function selectIcon(iconPath) {
+    const selectedIcon = document.createElement('img');
+    selectedIcon.src = iconPath;
+    selectedIcon.className = 'draggable';
+    selectedIcon.draggable = true;
+
+    selectedIcon.onclick = function (event) {
+        event.stopPropagation(); // Prevent canvas click when selecting the icon
+    };
+
+    selectedIcon.addEventListener('dragstart', function (event) {
+        event.dataTransfer.setData('text/plain', ''); // Needed for dragging to work
+    });
+
+    selectedIcon.addEventListener('mousedown', function (event) {
+        handleIconMouseDown(event, selectedIcon);
+    });
+
+    canvasContainer.appendChild(selectedIcon);
+}
+
+function handleIconMouseDown(event, icon) {
+    const offsetX = event.clientX - canvasContainer.getBoundingClientRect().left;
+    const offsetY = event.clientY - canvasContainer.getBoundingClientRect().top;
+
+    const cloneIcon = icon.cloneNode(true);
+    cloneIcon.style.left = offsetX - cloneIcon.offsetWidth / 2 + 'px';
+    cloneIcon.style.top = offsetY - cloneIcon.offsetHeight / 2 + 'px';
+    cloneIcon.style.position = 'absolute';
+
+    canvasContainer.appendChild(cloneIcon);
+
+    // Add drag functionality for the cloned icon
+    cloneIcon.addEventListener('mousemove', handleIconDrag);
+    cloneIcon.addEventListener('mouseup', function () {
+        cloneIcon.removeEventListener('mousemove', handleIconDrag);
+    });
+}
+
+function handleIconDrag(event) {
+    const draggedIcon = event.target;
+    const offsetX = event.clientX - canvasContainer.getBoundingClientRect().left;
+    const offsetY = event.clientY - canvasContainer.getBoundingClientRect().top;
+
+    draggedIcon.style.left = offsetX - draggedIcon.offsetWidth / 2 + 'px';
+    draggedIcon.style.top = offsetY - draggedIcon.offsetHeight / 2 + 'px';
+}
+
+
+
 
