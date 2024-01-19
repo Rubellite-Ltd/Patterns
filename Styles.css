@@ -13,14 +13,9 @@ canvas {
     border: 2px solid #000;
 }
 
-#shapeButtonsContainer {
-    display: flex;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-}
 
- page styles */
+
+
 
 body {
     margin: 0;
@@ -31,16 +26,7 @@ body {
     background-color: #f0f0f0;
 }
 
-canvas {
-    border: 2px solid #000;
-}
 
-
-
-
-.custom-shape-button:hover {
-    background-color: #eee;
-}
 
 
 
