@@ -20,5 +20,18 @@
     <input type="file" id="imageUploader" accept=".png">
     
     <script src="script.js"></script>
+    
+    <!-- Shape Selection Buttons -->
+<div>
+    <button onclick="selectShape('rectangle')">Rectangle</button>
+    <button onclick="selectShape('circle')">Circle</button>
+    <select id="customShapesDropdown" onchange="selectCustomShape()">
+        <option value="triangle">Triangle</option>
+        <option value="star">Star</option>
+        <!-- Add more custom shapes as needed -->
+    </select>
+</div>
+
+<!-- ... (remaining HTML content) ... -->
 </body>
 </html>
