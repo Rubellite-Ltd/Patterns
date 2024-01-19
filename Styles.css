@@ -13,7 +13,18 @@ canvas {
     border: 2px solid #000;
 }
 
+<style>
+        #iconsContainer {
+            display: flex;
+        }
 
+        .draggable-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px; /* Add some margin between icons */
+            cursor: pointer;
+        }
+    </style>
 
 
 .custom-shape-button:hover {
