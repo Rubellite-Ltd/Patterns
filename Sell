@@ -1,0 +1,14 @@
+<!-- Add this section to your HTML code -->
+
+<section>
+    <div class="feature">
+        <h2>Sell Your Creations</h2>
+        <p>Turn your patterns into tangible masterpieces! With our app, not only can you design stunning patterns, but you also have the ability to apply them to physical items and sell your creations.</p>
+        <p>From customized apparel to unique home decor, showcase your designs to the world and start your own creative business.</p>
+    </div>
+
+    <div class="feature">
+        <h2>Monetize Your Talent</h2>
+        <p>Unlock the potential to earn by transforming your digital designs into real-world products. Connect with buyers who appreciate your artistic flair and are eager to own a piece of your creativity.</p>
+    </div>
+</section>
