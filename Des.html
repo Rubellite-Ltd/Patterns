@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Menu</title>
+    <style>
+        /* Sidebar Styles */
+        .sidebar {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #f0f0f0;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            display: block;
+        }
+
+        /* Content Section Styles */
+        .content {
+            margin-left: 250px; /* Adjust for sidebar width */
+        }
+
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                display: block; /* Show sidebar on smaller screens */
+            }
+
+            /* Adjustments for small screens */
+            .content {
+                margin-left: 0; /* Reset margin for small screens */
+            }
+        }
+
+        @media screen and (min-width: 769px) {
+            /* Hide hamburger icon on desktop */
+            .hamburger {
+                display: none;
+            }
+
+            /* Display navigation buttons in line */
+            .nav-list {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .nav-list li {
+                margin-right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hamburger Icon -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger-icon"></div>
+        <div class="hamburger-icon"></div>
+        <div class="hamburger-icon"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul class="nav-list">
+            <li><a href="#" onclick="showContent('Home')">Home</a></li>
+            <li><a href="#" onclick="showContent('About')">About</a></li>
+            <li><a href="#" onclick="showContent('Contact')">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="content" id="Home">
+        <h2>Home</h2>
+        <p>This is the Home content. Feel free to customize it as needed.</p>
+    </div>
+
+    <div class="content" id="About">
+        <h2>About Us</h2>
+        <p>This is the About Us content. Feel free to customize it as needed.</p>
+    </div>
+
+    <div class="content" id="Contact">
+        <h2>Contact Us</h2>
+        <p>This is the Contact Us content. Feel free to customize it as needed.</p>
+    </div>
+
+    <script>
+        // Function to toggle sidebar visibility
+        function toggleMenu() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Function to show individual content section
+        function showContent(contentId) {
+            var contents = document.querySelectorAll('.content');
+            contents.forEach(function(content) {
+                content.classList.remove('active');
+            });
+            document.getElementById(contentId).classList.add('active');
+
+            // Hide sidebar after clicking a button (only for small screens)
+            var sidebar = document.getElementById('sidebar');
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
