@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Menu</title>
-    <style>
+
+ <style>
         /* Hamburger Icon Styles */
         .hamburger {
             cursor: pointer;
@@ -112,6 +113,79 @@
         margin-top: 20px;
     }
     </style>
+
+<style>
+  h1 {
+    color: white; /* Change 'blue' to any color you prefer */
+  }
+
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  .button-container {
+    margin-bottom: 10px;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 8px 12px;
+    margin-right: 5px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #B0C4DE;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid silver;
+  }
+
+  .button:hover, .button:active {
+    background-color: #45a049;
+  }
+
+  #about-us-content {
+    display: none;
+    margin-top: 20px;
+    border: 1px solid silver;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  /* Hamburger Icon Styles */
+  .hamburger {
+    display: none; /* Hidden by default */
+    cursor: pointer;
+  }
+
+  .hamburger-icon {
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin: 6px 0;
+  }
+
+  /* Show hamburger icon only for mobile screens */
+  @media screen and (max-width: 768px) {
+    .hamburger {
+      display: block; /* Show only on mobile */
+    }
+    .button-container {
+      display: none; /* Hide button container on mobile */
+    }
+  }
+</style>
+   
 </head>
 <body>
     <!-- Hamburger Icon -->
@@ -216,103 +290,11 @@
             }
         }
     </script>
-</body>
-</html>
 
 
 
-<style>
-  h1 {
-    color: white; /* Change 'blue' to any color you prefer */
-  }
-
-  .button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 10px 0;
-    font-size: 16px;
-    text-align: center;
-    text-decoration: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 2px;
-    cursor: pointer;
-  }
-
-  .button-container {
-    margin-bottom: 10px;
-  }
-
-  .button {
-    display: inline-block;
-    padding: 8px 12px;
-    margin-right: 5px;
-    font-size: 14px;
-    text-align: center;
-    text-decoration: none;
-    background-color: #B0C4DE;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1px solid silver;
-  }
-
-  .button:hover, .button:active {
-    background-color: #45a049;
-  }
-
-  #about-us-content {
-    display: none;
-    margin-top: 20px;
-    border: 1px solid silver;
-    padding: 10px;
-    border-radius: 5px;
-  }
-
-  /* Hamburger Icon Styles */
-  .hamburger {
-    display: none; /* Hidden by default */
-    cursor: pointer;
-  }
-
-  .hamburger-icon {
-    width: 30px;
-    height: 3px;
-    background-color: #333;
-    margin: 6px 0;
-  }
-
-  /* Show hamburger icon only for mobile screens */
-  @media screen and (max-width: 768px) {
-    .hamburger {
-      display: block; /* Show only on mobile */
-    }
-    .button-container {
-      display: none; /* Hide button container on mobile */
-    }
-  }
-</style>
 
 
-
-<script>
-  function showContent(contentId) {
-      var contents = document.querySelectorAll('#Home, #About, #Contact');
-      contents.forEach(function(content) {
-          if (content.id === contentId) {
-              content.style.display = 'block';
-          } else {
-              content.style.display = 'none';
-          }
-      });
-  }
-
-  // Function to toggle sidebar visibility
-  function toggleMenu() {
-      var sidebar = document.getElementById('sidebar');
-      sidebar.classList.toggle('active');
-  }
-</script>
 
 </body>
 </html>
