@@ -53,10 +53,16 @@
     border-radius: 5px;
   }
 
-  /* Hide hamburger icon for desktop screens */
+  /* Show hamburger icon only for mobile screens */
   @media screen and (min-width: 769px) {
     .hamburger {
       display: none;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .hamburger {
+      display: block;
     }
   }
 </style>
