@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Menu</title>
+    <style>
+        /* Hamburger Icon Styles */
+        .hamburger {
+            display: none; /* Hide by default on larger screens */
+            cursor: pointer;
+        }
+
+        .hamburger-icon {
+            width: 30px;
+            height: 3px;
+            background-color: #333;
+            margin: 6px 0;
+            transition: transform 0.3s ease;
+        }
+
+        /* Navigation Menu Styles */
+        .navigation {
+            display: block; /* Initially hidden on smaller screens */
+        }
+
+        .navigation ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .navigation li {
+            margin-bottom: 10px;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        @media screen and (max-width: 768px) {
+            .navigation {
+                display: none; /* Hide on larger screens */
+            }
+
+            .hamburger {
+                display: block; /* Show on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hamburger Icon -->
+    <div class="hamburger" onclick="toggleNavigation()">
+        <div class="hamburger-icon"></div>
+        <div class="hamburger-icon"></div>
+        <div class="hamburger-icon"></div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="navigation" id="navigation">
+        <ul>
+            <li><a href="#" onclick="showContent('Home')">Home</a></li>
+            <li><a href="#" onclick="showContent('About')">About</a></li>
+            <li><a href="#" onclick="showContent('Contact')">Contact</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        // Function to toggle navigation menu visibility
+        function toggleNavigation() {
+            var navigation = document.getElementById('navigation');
+            navigation.classList.toggle('show');
+        }
+
+        // Function to show content based on clicked link
+        function showContent(contentId) {
+            var contents = document.querySelectorAll('#Home, #About, #Contact');
+            contents.forEach(function(content) {
+                if (content.id === contentId) {
+                    content.style.display = 'block';
+                } else {
+                    content.style.display = 'none';
+                }
+            });
+
+            // Hide navigation menu on mobile after clicking a link
+            var navigation = document.getElementById('navigation');
+            if (window.innerWidth <= 768) {
+                navigation.classList.remove('show');
+            }
+        }
+    </script>
+</body>
+</html>
