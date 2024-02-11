@@ -53,16 +53,26 @@
     border-radius: 5px;
   }
 
-  /* Show hamburger icon only for mobile screens */
-  @media screen and (min-width: 769px) {
-    .hamburger {
-      display: none;
-    }
+  /* Hamburger Icon Styles */
+  .hamburger {
+    display: none; /* Hidden by default */
+    cursor: pointer;
   }
 
+  .hamburger-icon {
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin: 6px 0;
+  }
+
+  /* Show hamburger icon only for mobile screens */
   @media screen and (max-width: 768px) {
     .hamburger {
-      display: block;
+      display: block; /* Show only on mobile */
+    }
+    .button-container {
+      display: none; /* Hide button container on mobile */
     }
   }
 </style>
@@ -114,22 +124,22 @@
 </div>
 
 <script>
-    function showContent(contentId) {
-        var contents = document.querySelectorAll('#Home, #About, #Contact');
-        contents.forEach(function(content) {
-            if (content.id === contentId) {
-                content.style.display = 'block';
-            } else {
-                content.style.display = 'none';
-            }
-        });
-    }
+  function showContent(contentId) {
+      var contents = document.querySelectorAll('#Home, #About, #Contact');
+      contents.forEach(function(content) {
+          if (content.id === contentId) {
+              content.style.display = 'block';
+          } else {
+              content.style.display = 'none';
+          }
+      });
+  }
 
-    // Function to toggle sidebar visibility
-    function toggleMenu() {
-        var sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('active');
-    }
+  // Function to toggle sidebar visibility
+  function toggleMenu() {
+      var sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('active');
+  }
 </script>
 
 </body>
