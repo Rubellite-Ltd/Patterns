@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Menu</title>
+
+    <style>
+        /* Common styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Hamburger Icon Styles */
+        .hamburger {
+            display: none; /* Hidden by default */
+            cursor: pointer;
+            position: fixed;
+            top: 20px; /* Adjust top position as needed */
+            left: 20px; /* Adjust left position as needed */
+            z-index: 1000;
+        }
+
+        .hamburger-icon {
+            width: 30px;
+            height: 3px;
+            background-color: #333;
+            margin: 6px 0;
+            transition: transform 0.3s ease;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 60px; /* Thinner width */
+            height: 100%;
+            background-color: #DB7093;
+            padding: 20px;
+            z-index: 999; /* Lower z-index to be behind content */
+            transition: width 0.3s ease; /* Smooth width transition */
+        }
+
+        .sidebar.active {
+            width: 250px; /* Expanded width when active */
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc; /* Line between buttons */
+        }
+
+        /* Content Section Styles */
+        .content {
+            display: none; /* Initially hidden */
+            padding-top: 60px; /* Adjust for top space occupied by hamburger */
+            text-align: center; /* Center align content */
+        }
+
+        .content.active {
+            display: block; /* Display when active */
+        }
+
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block; /* Show only on mobile */
+            }
+            .button-container {
+                display: none; /* Hide button container on mobile */
+            }
+            .content {
+                padding-top: 0; /* Reset padding for small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hamburger Icon -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger-icon"></div>
+        <div class="hamburger-icon"></div>
+        <div class="hamburger-icon"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul class="nav-list">
+            <li><a href="#" onclick="showContent('Home')">Home</a></li>
+            <li><a href="#" onclick="showContent('About')">About</a></li>
+            <li><a href="#" onclick="showContent('Contact')">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="content" id="Home">
+        <h2>Home</h2>
+        <p>This is the Home content. Feel free to customize it as needed.</p>
+    </div>
+
+    <div class="content" id="About">
+        <h2>About Us</h2>
+        <p>This is the About Us content. Feel free to customize it as needed.</p>
+    </div>
+
+    <div class="content" id="Contact">
+        <h2>Contact Us</h2>
+        <p>This is the Contact Us content. Feel free to customize it as needed.</p>
+    </div>
+
+    <!-- Button Container (for desktop view) -->
+    <div class="button-container">
+        <a class="button" href="#" onclick="showContent('Home')">Home</a>
+        <a class="button" href="#" onclick="showContent('About')">About</a>
+        <a class="button" href="#" onclick="showContent('Contact')">Contact</a>
+    </div>
+
+    <script>
+        // Function to toggle sidebar visibility
+        function toggleMenu() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Function to show individual content section
+        function showContent(contentId) {
+            var contents = document.querySelectorAll('.content');
+            contents.forEach(function(content) {
+                content.classList.remove('active');
+            });
+            document.getElementById(contentId).classList.add('active');
+
+            // Hide sidebar after clicking a button (only for small screens)
+            var sidebar = document.getElementById('sidebar');
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
