@@ -24,22 +24,16 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 60px; /* Thinner width */
+            width: 250px;
             height: 100%;
             background-color: #f0f0f0;
             padding: 20px;
             z-index: 1000;
-            transition: width 0.3s ease; /* Smooth width transition */
-        }
-
-        .sidebar.active {
-            width: 250px; /* Expanded width when active */
         }
 
         .sidebar ul {
             list-style: none;
             padding: 0;
-            margin: 0;
         }
 
         .sidebar li {
@@ -55,7 +49,6 @@
         /* Content Section Styles */
         .content {
             display: none; /* Initially hidden */
-            margin-left: 250px; /* Adjust for sidebar width */
         }
 
         .content.active {
@@ -68,8 +61,8 @@
             }
 
             /* Adjustments for small screens */
-            .content {
-                margin-left: 0; /* Reset margin for small screens */
+            .content.active {
+                display: none; /* Hide content by default on small screens */
             }
         }
     </style>
@@ -92,12 +85,10 @@
     </div>
 
     <!-- Content Sections -->
-
-<div class="content" id="Home">
-    <img src="header-image.jpg" alt="Header Image" style="width: 100%;">
-    <h2>Home</h2>
-    <p>This is the Home content. Feel free to customize it as needed.</p>
-</div>
+    <div class="content" id="Home">
+        <h2>Home</h2>
+        <p>This is the Home content. Feel free to customize it as needed.</p>
+    </div>
 
     <div class="content" id="About">
         <h2>About Us</h2>
@@ -123,12 +114,6 @@
                 content.classList.remove('active');
             });
             document.getElementById(contentId).classList.add('active');
-
-            // Hide sidebar after clicking a button (only for small screens)
-            var sidebar = document.getElementById('sidebar');
-            if (window.innerWidth <= 768) {
-                sidebar.classList.remove('active');
-            }
         }
     </script>
 </body>
