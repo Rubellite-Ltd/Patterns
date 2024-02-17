@@ -5,14 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Menu</title>
 
- <style>
+    <style>
+        /* Common styles for both mobile and desktop */
+        h1 {
+            color: white;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .button-container {
+            margin-bottom: 10px;
+            text-align: center; /* Center align buttons */
+        }
+
+        .button {
+            display: inline-block;
+            padding: 8px 12px;
+            margin-right: 5px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #B0C4DE;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid silver;
+        }
+
+        .button:hover, .button:active {
+            background-color: #45a049;
+        }
+
         /* Hamburger Icon Styles */
         .hamburger {
+            display: none; /* Hidden by default */
             cursor: pointer;
-            position: fixed;
-            top: 20px; /* Adjust top position as needed */
-            left: 20px; /* Adjust left position as needed */
-            z-index: 1000;
         }
 
         .hamburger-icon {
@@ -20,7 +58,6 @@
             height: 3px;
             background-color: #333;
             margin: 6px 0;
-            transition: transform 0.3s ease;
         }
 
         /* Sidebar Styles */
@@ -29,16 +66,16 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 60px; /* Thinner width */
+            width: 60px;
             height: 100%;
             background-color: #DB7093;
             padding: 20px;
             z-index: 1000;
-            transition: width 0.3s ease; /* Smooth width transition */
+            transition: width 0.3s ease;
         }
 
         .sidebar.active {
-            width: 250px; /* Expanded width when active */
+            width: 250px;
         }
 
         .sidebar ul {
@@ -60,132 +97,38 @@
             border-bottom: 1px solid #ccc; /* Line between buttons */
         }
 
-        /* Content Section Styles */
-   .content {
-            display: none; /* Initially hidden */
+        /* Desktop specific styles */
+        @media screen and (min-width: 769px) {
+            .button-container {
+                display: block; /* Show button container */
+            }
+            .sidebar {
+                display: block; /* Show sidebar */
+            }
+        }
+
+        /* Mobile specific styles */
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block; /* Show hamburger icon */
+            }
+            .button-container {
+                display: none; /* Hide button container */
+            }
+        }
+
+        /* Common content styles for both mobile and desktop */
+        .content {
+            display: none;
             margin-left: 250px; /* Adjust for sidebar width */
             padding-top: 60px; /* Adjust for top space occupied by hamburger */
-            text-align: center; /* Center align content */
+            text-align: center;
         }
 
         .content.active {
-            display: block; /* Display when active */
+            display: block;
         }
-
-        @media screen and (max-width: 768px) {
-            .sidebar.active {
-                display: block; /* Show sidebar when active */
-            }
-
-            /* Adjustments for small screens */
-            .content {
-                margin-left: 0; /* Reset margin for small screens */
-                padding-top: 0; /* Reset padding for small screens */
-            }
-        }
-    .content {
-        position: relative;
-        width: 100%;
-    }
-
-    .content img {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
-
-    .content .text {
-        position: absolute;
-        top: 10%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        color: white;
-        font-size: 24px;
-        font-weight: bold;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .content .additional-content {
-        text-align: center;
-        color: blue;
-        font-size: 18px;
-        margin-top: 20px;
-    }
     </style>
-
-<style>
-  h1 {
-    color: white; /* Change 'blue' to any color you prefer */
-  }
-
-  .button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 10px 0;
-    font-size: 16px;
-    text-align: center;
-    text-decoration: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 2px;
-    cursor: pointer;
-  }
-
-  .button-container {
-    margin-bottom: 10px;
-  }
-
-  .button {
-    display: inline-block;
-    padding: 8px 12px;
-    margin-right: 5px;
-    font-size: 14px;
-    text-align: center;
-    text-decoration: none;
-    background-color: #B0C4DE;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1px solid silver;
-  }
-
-  .button:hover, .button:active {
-    background-color: #45a049;
-  }
-
-  #about-us-content {
-    display: none;
-    margin-top: 20px;
-    border: 1px solid silver;
-    padding: 10px;
-    border-radius: 5px;
-  }
-
-  /* Hamburger Icon Styles */
-  .hamburger {
-    display: none; /* Hidden by default */
-    cursor: pointer;
-  }
-
-  .hamburger-icon {
-    width: 30px;
-    height: 3px;
-    background-color: #333;
-    margin: 6px 0;
-  }
-
-  /* Show hamburger icon only for mobile screens */
-  @media screen and (max-width: 768px) {
-    .hamburger {
-      display: block; /* Show only on mobile */
-    }
-    .button-container {
-      display: none; /* Hide button container on mobile */
-    }
-  }
-</style>
-   
 </head>
 <body>
     <!-- Hamburger Icon -->
@@ -193,6 +136,13 @@
         <div class="hamburger-icon"></div>
         <div class="hamburger-icon"></div>
         <div class="hamburger-icon"></div>
+    </div>
+
+    <!-- Button Container -->
+    <div class="button-container">
+        <a class="button" href="#" onclick="showContent('Home')">Home</a>
+        <a class="button" href="#" onclick="showContent('About')">About</a>
+        <a class="button" href="#" onclick="showContent('Contact')">Contact</a>
     </div>
 
     <!-- Sidebar -->
@@ -205,83 +155,37 @@
     </div>
 
     <!-- Content Sections -->
-
-<div class="content" id="Home">
-    <img src="header-image.jpg" alt="Header Image">
-    <div class="text">Home</div>
-    <div class="additional-content">
-        Additional Home Content Below Image
+    <div class="content" id="Home">
+        <h2>Home</h2>
+        <p>This is the Home content. Feel free to customize it as needed.</p>
     </div>
-    <div>
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-    </div>
-
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-</div>
-
-
-
 
     <div class="content" id="About">
-
-      <img src="header-image.jpg" alt="Header Image">
-    <div class="text">About Us</div>
-    <div class="additional-content">
-        Additional About Content Below Image
+        <h2>About Us</h2>
+        <p>This is the About Us content. Feel free to customize it as needed.</p>
     </div>
-    <div>
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-    </div>
-
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-    </div>
-
 
     <div class="content" id="Contact">
-   <img src="header-image.jpg" alt="Header Image">
-    <div class="text">Contact Us</div>
-    <div class="additional-content">
-        Additional Contact Content Below Image
+        <h2>Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>General Inquiries</h3>
+                <p>Email: info@pattern-design-app.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+            </div>
+            <div class="contact-info">
+                <h3>Technical Support</h3>
+                <p>Email: support@pattern-design-app.com</p>
+                <p>Phone: +1 (555) 987-6543</p>
+            </div>
+            <div class="contact-info">
+                <h3>Customer Feedback</h3>
+                <p>Email: feedback@pattern-design-app.com</p>
+            </div>
+        </div>
     </div>
-    <div>
-  <p>This is the contc Us content. Feel free to customize it as needed.</p>
-    </div>
 
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-
-  <p>This is the About Us content. Feel free to customize it as needed.</p>
-    </div>
-
-<!-- Hamburger Icon -->
-<div class="hamburger" onclick="toggleMenu()">
-    <div class="hamburger-icon"></div>
-    <div class="hamburger-icon"></div>
-    <div class="hamburger-icon"></div>
-</div>
-
-<div class="button-container">
-    <a class="button" href="#" onclick="showContent('Home')">Home</a>
-    <a class="button" href="#" onclick="showContent('About')">About</a>
-    <a class="button" href="#" onclick="showContent('Contact')">Contact</a>
-</div>
-
-
+    <!-- JavaScript -->
     <script>
         // Function to toggle sidebar visibility
         function toggleMenu() {
@@ -304,11 +208,5 @@
             }
         }
     </script>
-
-
-
-
-
-
 </body>
 </html>
