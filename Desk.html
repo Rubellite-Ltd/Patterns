@@ -1,120 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navigation Menu</title>
-    <style>
-        /* Hamburger Icon Styles */
-        .hamburger {
-            cursor: pointer;
-        }
+<title>CSS Template</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-        .hamburger-icon {
-            width: 30px;
-            height: 3px;
-            background-color: #333;
-            margin: 6px 0;
-            transition: transform 0.3s ease;
-        }
+<style>
+  h1 {
+    color: white; /* Change 'blue' to any color you prefer */
+  }
 
-        /* Sidebar Styles */
-        .sidebar {
-            display: none; /* Initially hidden */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 250px;
-            height: 100%;
-            background-color: #f0f0f0;
-            padding: 20px;
-            z-index: 1000;
-        }
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 2px;
+    cursor: pointer;
+  }
 
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
+  .button-container {
+    margin-bottom: 10px;
+  }
 
-        .sidebar li {
-            margin-bottom: 10px;
-        }
+  .button {
+    display: inline-block;
+    padding: 8px 12px;
+    margin-right: 5px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #B0C4DE;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid silver;
+  }
 
-        .sidebar a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
+  .button:hover, .button:active {
+    background-color: #45a049;
+  }
 
-        /* Content Section Styles */
-        .content {
-            display: none; /* Initially hidden */
-        }
+  #about-us-content {
+    display: none;
+    margin-top: 20px;
+    border: 1px solid silver;
+    padding: 10px;
+    border-radius: 5px;
+  }
 
-        .content.active {
-            display: block; /* Display when active */
-        }
+  /* Hamburger Icon Styles */
+  .hamburger {
+    display: none; /* Hidden by default */
+    cursor: pointer;
+  }
 
-        @media screen and (max-width: 768px) {
-            .sidebar.active {
-                display: block; /* Show sidebar when active */
-            }
+  .hamburger-icon {
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin: 6px 0;
+  }
 
-            /* Adjustments for small screens */
-            .content.active {
-                display: none; /* Hide content by default on small screens */
-            }
-        }
-    </style>
+  /* Show hamburger icon only for mobile screens */
+  @media screen and (max-width: 768px) {
+    .hamburger {
+      display: block; /* Show only on mobile */
+    }
+    .button-container {
+      display: none; /* Hide button container on mobile */
+    }
+  }
+</style>
+
 </head>
 <body>
-    <!-- Hamburger Icon -->
-    <div class="hamburger" onclick="toggleMenu()">
-        <div class="hamburger-icon"></div>
-        <div class="hamburger-icon"></div>
-        <div class="hamburger-icon"></div>
+
+<!-- Hamburger Icon -->
+<div class="hamburger" onclick="toggleMenu()">
+    <div class="hamburger-icon"></div>
+    <div class="hamburger-icon"></div>
+    <div class="hamburger-icon"></div>
+</div>
+
+<div class="button-container">
+    <a class="button" href="#" onclick="showContent('Home')">Home</a>
+    <a class="button" href="#" onclick="showContent('About')">About</a>
+    <a class="button" href="#" onclick="showContent('Contact')">Contact</a>
+</div>
+
+<div id="Home">
+    <h2>Home</h2>
+    <p>This is the Home content. Feel free to customize it as needed.</p>
+</div>
+
+<div id="About" style="display: none;">
+    <h2>About Us</h2>
+    <p>This is the About Us content. Feel free to customize it as needed.</p>
+</div>
+
+<div id="Contact" style="display: none;">
+    <h2>Contact Us</h2>
+    <div class="contact-container">
+        <div class="contact-info">
+            <h3>General Inquiries</h3>
+            <p>Email: info@pattern-design-app.com</p>
+            <p>Phone: +1 (555) 123-4567</p>
+        </div>
+        <div class="contact-info">
+            <h3>Technical Support</h3>
+            <p>Email: support@pattern-design-app.com</p>
+            <p>Phone: +1 (555) 987-6543</p>
+        </div>
+        <div class="contact-info">
+            <h3>Customer Feedback</h3>
+            <p>Email: feedback@pattern-design-app.com</p>
+        </div>
     </div>
+</div>
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <ul class="nav-list">
-            <li><a href="#" onclick="showContent('Home')">Home</a></li>
-            <li><a href="#" onclick="showContent('About')">About</a></li>
-            <li><a href="#" onclick="showContent('Contact')">Contact</a></li>
-        </ul>
-    </div>
+<script>
+  function showContent(contentId) {
+      var contents = document.querySelectorAll('#Home, #About, #Contact');
+      contents.forEach(function(content) {
+          if (content.id === contentId) {
+              content.style.display = 'block';
+          } else {
+              content.style.display = 'none';
+          }
+      });
+  }
 
-    <!-- Content Sections -->
-    <div class="content" id="Home">
-        <h2>Home</h2>
-        <p>This is the Home content. Feel free to customize it as needed.</p>
-    </div>
+  // Function to toggle sidebar visibility
+  function toggleMenu() {
+      var sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('active');
+  }
+</script>
 
-    <div class="content" id="About">
-        <h2>About Us</h2>
-        <p>This is the About Us content. Feel free to customize it as needed.</p>
-    </div>
-
-    <div class="content" id="Contact">
-        <h2>Contact Us</h2>
-        <p>This is the Contact Us content. Feel free to customize it as needed.</p>
-    </div>
-
-    <script>
-        // Function to toggle sidebar visibility
-        function toggleMenu() {
-            var sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
-
-        // Function to show individual content section
-        function showContent(contentId) {
-            var contents = document.querySelectorAll('.content');
-            contents.forEach(function(content) {
-                content.classList.remove('active');
-            });
-            document.getElementById(contentId).classList.add('active');
-        }
-    </script>
 </body>
 </html>
