@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patterns</title>
 <link rel="icon" href="favicon.ico" type="image/x-icon">
-
+    <link rel="stylesheet" href="CP.css">
  <style>
         /* Hamburger Icon Styles */
         .hamburger {
@@ -523,8 +523,34 @@ section {
         </div>
     </div>
 
+    
+
     <script src="cookie.js"></script>
 
+    <div id="custom-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Cookie Preferences</h2>
+            <p>Customize your cookie preferences below:</p>
+            <form id="cookie-form">
+                <label for="functional-cookies">
+                    <input type="checkbox" id="functional-cookies" name="functional-cookies" checked>
+                    Functional Cookies
+                </label>
+                <label for="analytical-cookies">
+                    <input type="checkbox" id="analytical-cookies" name="analytical-cookies" checked>
+                    Analytical Cookies
+                </label>
+                <label for="advertising-cookies">
+                    <input type="checkbox" id="advertising-cookies" name="advertising-cookies" checked>
+                    Advertising Cookies
+                </label>
+                <button type="submit">Save Preferences</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="CP.js"></script>
 
 
 
