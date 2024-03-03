@@ -12,7 +12,7 @@
 </head>
 <body>
     <h2>Contact Us</h2>
-    <form action="send_email.php" method="post" onsubmit="return validateForm()">
+    <form id="contact-form">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" required><br>
         <span id="name-error" class="error"></span><br>
@@ -25,40 +25,34 @@
         <button type="submit">Submit</button>
     </form>
 
+    <div id="response-message"></div>
+
     <script>
-        function validateForm() {
-            var name = document.getElementById("name").value;
-            var email = document.getElementById("email").value;
-            var message = document.getElementById("message").value;
-            var isValid = true;
+        document.addEventListener("DOMContentLoaded", function() {
+            var form = document.getElementById("contact-form");
+            var responseMessage = document.getElementById("response-message");
 
-            // Validate name
-            if (name.trim() == "") {
-                document.getElementById("name-error").innerText = "Name is required";
-                isValid = false;
-            } else {
-                document.getElementById("name-error").innerText = "";
-            }
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
 
-            // Validate email
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                document.getElementById("email-error").innerText = "Invalid email address";
-                isValid = false;
-            } else {
-                document.getElementById("email-error").innerText = "";
-            }
-
-            // Validate message
-            if (message.trim() == "") {
-                document.getElementById("message-error").innerText = "Message is required";
-                isValid = false;
-            } else {
-                document.getElementById("message-error").innerText = "";
-            }
-
-            return isValid;
-        }
+                var formData = new FormData(form);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "send_email.php", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = function() {
+                    var response = JSON.parse(xhr.responseText);
+                    if (xhr.status === 200) {
+                        responseMessage.innerText = response.message;
+                        responseMessage.style.color = "green";
+                        form.reset();
+                    } else {
+                        responseMessage.innerText = response.message;
+                        responseMessage.style.color = "red";
+                    }
+                };
+                xhr.send(JSON.stringify(Object.fromEntries(formData)));
+            });
+        });
     </script>
 </body>
 </html>
