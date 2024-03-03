@@ -12,23 +12,23 @@
 </head>
 <body>
     <h2>Contact Us</h2>
-    <form id="contact-form" action="https://new-avccyfky8-trdsphrs-projects.vercel.app/send_email.php" method="post">
+  <div id="formkeep-embed" data-formkeep-url="https://formkeep.com/p/551c559373b3f0e0ac7008e8bbe16eb0?embedded=1"></div>
 
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br>
-        <span id="name-error" class="error"></span><br>
+<script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
+<script type="text/javascript" src="https://formkeep-production-herokuapp-com.global.ssl.fastly.net/formkeep-embed.js"></script>
 
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br>
-        <span id="email-error" class="error"></span><br>
+<!-- Get notified when the form is submitted, add your own code below: -->
+<script>
+const formkeepEmbed = document.querySelector('#formkeep-embed')
 
-        <label for="message">Message:</label><br>
-        <textarea id="message" name="message" required></textarea><br>
-        <span id="message-error" class="error"></span><br>
-        
-        <button type="submit">Submit</button>
-    </form>
+formkeepEmbed.addEventListener('formkeep-embed:submitting', _event => {
+  console.log('Submitting form...')
+})
 
+formkeepEmbed.addEventListener('formkeep-embed:submitted', _event => {
+  console.log('Submitted form...')
+})
+</script>
     <div id="response-message"></div>
 
     <script>
