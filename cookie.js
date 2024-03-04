@@ -11,11 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
         cookiePopup.style.display = "none"; // Hide the cookie popup
     });
 
-    customizeBtn.addEventListener("click", function() {
-        // Redirect or open a modal for customizing preferences
-        // This action would be implemented based on your application's logic
-        alert("Customize Preferences button clicked");
-    });
+ 
 
     closeBtn.addEventListener("click", function() {
         if (openedFromPopup) {
