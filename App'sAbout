@@ -1,1 +1,60 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Your App Name</title>
+  <style>
+    /* Add your CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    p {
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>About Us</h1>
+    <p>Welcome to <strong>Your App Name</strong>, the ultimate platform for unleashing your creativity and designing captivating patterns like never before. At <strong>Your App Name</strong>, we're dedicated to empowering users with intuitive tools and a vast array of features to craft stunning designs effortlessly.</p>
+
+    <h2>Our Mission</h2>
+    <p>We believe in providing users with the means to express their creativity freely and effortlessly. Our mission is to offer a seamless platform where individuals can explore their artistic talents, design unique patterns, and bring their imaginative visions to life.</p>
+
+    <h2>Features</h2>
+    <ul>
+      <li><strong>Shape Manipulation:</strong> With <strong>Your App Name</strong>, users can easily manipulate shapes, creating intricate patterns with just a few taps.</li>
+      <li><strong>Pattern Blending:</strong> Seamlessly blend patterns to achieve unique and captivating designs that stand out.</li>
+      <li><strong>Color Spectrum:</strong> Explore a spectrum of colors and hues to add depth and vibrancy to your creations.</li>
+      <li><strong>Floral Axis:</strong> Dive into the world of floral design with our innovative floral axis feature, allowing users to create stunning floral-inspired patterns effortlessly.</li>
+      <li><strong>Grid Functionality:</strong> Stay organized and precise with our grid functionality, ensuring that every element of your design aligns perfectly.</li>
+    </ul>
+
+    <h2>How to Use</h2>
+    <ol>
+      <li><strong>Choose Your Shapes:</strong> Select from a variety of shapes provided within the app.</li>
+      <li><strong>Blend Patterns:</strong> Experiment with pattern blending to create one-of-a-kind designs.</li>
+      <li><strong>Play with Colors:</strong> Explore a wide range of colors and gradients to add depth and personality to your patterns.</li>
+      <li><strong>Floral Axis and Grid:</strong> Utilize our floral axis and grid functionality to achieve precision and balance in your designs.</li>
+    </ol>
+
+    <h2>Join Us</h2>
+    <p>Join the <strong>Your App Name</strong> community and embark on a journey of creativity and self-expression. Download our app today and let your imagination run wild!</p>
+
+    <p>At <strong>Your App Name</strong>, we're committed to providing users with an unparalleled design experience. Get ready to unleash your creativity and create patterns that inspire and captivate.</p>
+  </div>
+</body>
+</html>
