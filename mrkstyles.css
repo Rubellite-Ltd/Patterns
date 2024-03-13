@@ -217,18 +217,7 @@ section {
     border-radius: 5px;
   }
 
-  /* Hamburger Icon Styles */
-  .hamburger {
-    display: none; /* Hidden by default */
-    cursor: pointer;
-  }
 
-  .hamburger-icon {
-    width: 30px;
-    height: 3px;
-    background-color: #333;
-    margin: 6px 0;
-  }
 
   /* Show hamburger icon only for mobile screens */
   @media screen and (max-width: 768px) {
