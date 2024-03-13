@@ -7,14 +7,13 @@
             left: 20px; /* Adjust left position as needed */
             z-index: 1000;
         }
-
-        .hamburger-icon {
-            width: 30px;
-            height: 3px;
-            background-color: #333;
-            margin: 6px 0;
-            transition: transform 0.3s ease;
-        }
+ .hamburger-icon {
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin: 6px 0;
+  }
+ 
 
         /* Sidebar Styles */
         .sidebar {
