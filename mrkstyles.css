@@ -239,4 +239,24 @@ section {
       display: none; /* Hide button container on mobile */
     }
   }
+
+    /* Add your CSS styles here */
+    aboutbody {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .aboutcontainer {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    abouth1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    aboutp {
+      line-height: 1.6;
+    }
+
     </style>
