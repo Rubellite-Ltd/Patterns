@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "stripe": "^8.0.0"
+    "stripe": "^8.0.0"  // Ensure stripe is listed here
   },
   "devDependencies": {},
   "engines": {
