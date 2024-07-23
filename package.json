@@ -1,0 +1,21 @@
+{
+  "name": "your-project-name",
+  "version": "1.0.0",
+  "description": "A brief description of your project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "your-build-command",
+    "test": "your-test-command"
+  },
+  "dependencies": {
+    "stripe": "^8.0.0",
+    "other-dependency": "^1.0.0"  // replace with actual dependencies
+  },
+  "devDependencies": {
+    // dev dependencies (if any)
+  },
+  "engines": {
+    "node": ">=14.x"
+  }
+}
