@@ -1,19 +1,18 @@
 {
-  "name": "your-project-name",
+  "name": "Patterns",
   "version": "1.0.0",
-  "description": "A brief description of your project",
+  "description": "A brief description of your Patterns project",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "your-build-command",
-    "test": "your-test-command"
+    "build": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "stripe": "^8.0.0",
-    "other-dependency": "^1.0.0"  // replace with actual dependencies
+    "stripe": "^8.0.0" // Ensure this is the correct version or update as needed
   },
   "devDependencies": {
-    // dev dependencies (if any)
+    // Add development dependencies here if needed
   },
   "engines": {
     "node": ">=14.x"
