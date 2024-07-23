@@ -1,11 +1,11 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event, context) => {
-    const apiVersion = event.queryStringParameters.api_version;
+    const { customerId, apiVersion } = JSON.parse(event.body);
 
     try {
         const ephemeralKey = await stripe.ephemeralKeys.create(
-            { customer: '{{CUSTOMER_ID}}' },
+            { customer: customerId },
             { apiVersion }
         );
 
