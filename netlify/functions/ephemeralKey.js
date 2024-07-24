@@ -19,10 +19,24 @@ exports.handler = async function(event, context) {
   }
 
   try {
-    const ephemeralKey = await stripe.ephemeralKeys.create(
-      { customer: requestBody.customer_id }, // Pass the customer ID from the request body
-      { apiVersion: '2022-08-01' } // Specify the API version
-    );
+    let ephemeralKey;
+
+    if (requestBody.customer_id) {
+      ephemeralKey = await stripe.ephemeralKeys.create(
+        { customer: requestBody.customer_id }, // Pass the customer ID from the request body
+        { apiVersion: '2022-08-01' } // Specify the API version
+      );
+    } else if (requestBody.issuing_card_id) {
+      ephemeralKey = await stripe.ephemeralKeys.create(
+        { issuing_card: requestBody.issuing_card_id }, // Pass the issuing card ID from the request body
+        { apiVersion: '2022-08-01' } // Specify the API version
+      );
+    } else {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Must provide exactly one of these parameters: customer_id, issuing_card_id' })
+      };
+    }
 
     return {
       statusCode: 200,
