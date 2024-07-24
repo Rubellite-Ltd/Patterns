@@ -1,32 +1,37 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-exports.handler = async (event, context) => {
-    try {
-        console.log("Event Body:", event.body); // Log the request body for debugging
+exports.handler = async function(event, context) {
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ error: 'Method Not Allowed' })
+    };
+  }
 
-        const { customerId, apiVersion } = JSON.parse(event.body);
+  let requestBody;
+  try {
+    requestBody = JSON.parse(event.body);
+  } catch (err) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid request body' })
+    };
+  }
 
-        if (!customerId || !apiVersion) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: "Missing required parameters: customerId and apiVersion" }),
-            };
-        }
+  try {
+    const ephemeralKey = await stripe.ephemeralKeys.create(
+      { customer: requestBody.customer_id }, // Pass the customer ID from the request body
+      { apiVersion: '2022-08-01' } // Specify the API version
+    );
 
-        const ephemeralKey = await stripe.ephemeralKeys.create(
-            { customer: customerId },
-            { apiVersion }
-        );
-
-        return {
-            statusCode: 200,
-            body: JSON.stringify(ephemeralKey),
-        };
-    } catch (err) {
-        console.log("Error:", err); // Log the error for debugging
-        return {
-            statusCode: 400,
-            body: JSON.stringify({ error: err.message }),
-        };
-    }
+    return {
+      statusCode: 200,
+      body: JSON.stringify(ephemeralKey)
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message })
+    };
+  }
 };
